@@ -5,12 +5,26 @@
 </head>
 <body>
 
-    <div>You searched for "{{ query }}".  The search results for "{{ query }}" are below:</div>
-    <ul>
-        {% for page in results %}
-            <li><a href="{{ page.get_absolute_url }}">{{ page.title }}</a></li>
-        {% endfor %}
-    </ul>
+    <form method="get" action="/search/">
+        <p><label for="id_q">Search:</label>
+        <input type="text" name="q" id="id_q" />
+        <input type="submit" value="Submit" /></p>
+    </form>
 
+    {% if results %}
+        <div>You searched for "{{ query }}".  The search results for "{{ query }}" are below:</div>
+        <ul>
+            {% for page in results %}
+                <li><a href="{{ page.get_absolute_url }}">{{ page.title }}</a></li>
+            {% endfor %}
+        </ul>
+
+    {% else %}
+        {% if query %}
+            <p>No results found. :(</p>
+        {% else %}
+            <p>Type a search query into the input box above, and press "Submit" to search.</p>
+        {% endif %}
+    {% endif %}
 </body>
 </html>

@@ -1,21 +1,18 @@
 # Search app views
 
-from django.http import HttpResponse
-from django.template import loader, Context
+from django.shortcuts import render_to_response
 from django.contrib.flatpages.models import FlatPage
 
 
 def search(request):
-    query = request.GET['q']
+    query = request.GET.get('q', '')
+    results = []
 
-    # Get a set of all flatpage models, filtering on an extracted keyword match
-    results = FlatPage.objects.filter(content__icontains=query)
+    if query:
+        results = FlatPage.objects.filter(content__icontains=query)
 
-    # Loads a template and setups the context of the call
-    template = loader.get_template("search/search.html")
-    context = Context({'query': query, 'results': results})
+    return render_to_response('search/search.html',
+                              {'query': query,
+                               'results': results})
 
-    # Render a response!
-    response = template.render(context)
-    return HttpResponse(response)
 
