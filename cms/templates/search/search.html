@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search</title>
+</head>
+<body>
+
+    <div>You searched for "{{ query }}".  The search results for "{{ query }}" are below:</div>
+    <ul>
+        {% for page in results %}
+            <li><a href="{{ page.get_absolute_url }}">{{ page.title }}</a></li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>

@@ -23,5 +23,6 @@ urlpatterns = patterns(
 
 
     # Flatpages url.
+    url(r'^search/$', 'search.views.search'),
     url(r'', include('django.contrib.flatpages.urls'))
 )
