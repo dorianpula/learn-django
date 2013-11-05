@@ -13,4 +13,5 @@ Werkzeug==0.9.4
 django-extensions==1.2.5
 
 # Task runner experiment
+#invoke==dev
 invoke>=0.5.1
