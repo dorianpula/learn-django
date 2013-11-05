@@ -132,7 +132,8 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
 
     'cms.search',
-    'charleston'
+    'charleston',
+    'tagging'
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'

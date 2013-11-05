@@ -1,0 +1,16 @@
+# Django basic requirements
+Django==1.5.5
+argparse==1.2.1
+six==1.4.1
+wsgiref==0.1.2
+
+# Extra Django apps
+django-tagging>=0.0.1
+Markdown>=2.3.1
+
+# Django debugging extensions
+Werkzeug==0.9.4
+django-extensions==1.2.5
+
+# Task runner experiment
+invoke>=0.5.1
