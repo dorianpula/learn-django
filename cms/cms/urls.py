@@ -4,7 +4,6 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 admin.autodiscover()
 from cms.settings import PROJECT_HOME
-
 urlpatterns = patterns(
     '',
     # Examples:
@@ -20,9 +19,13 @@ urlpatterns = patterns(
     # TinyMCE URLs...
     (r'^tinymce/(?P<path>.*)$', 'django.views.static.serve', {'document_root':
                                                               '{}/templates/js/tinymce'.format(PROJECT_HOME)}),
+    url(r'^search/$', 'cms.search.views.search'),
 
+    url(r'^weblog/$', 'charleston.views.entries_index'),
+    url(r'^weblog/(?P<year>\d{4})/(?P<month>\w{3})/(?P<day>\d{2})/(?P<slug>[-\w]+)/$',
+        'charleston.views.entries_detail'),
 
     # Flatpages url.
-    url(r'^search/$', 'cms.search.views.search'),
     url(r'', include('django.contrib.flatpages.urls'))
 )
+

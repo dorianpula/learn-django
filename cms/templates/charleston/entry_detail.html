@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weblog - {{ entry.title }}</title>
+</head>
+<body>
+
+    <h1><a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a></h1>
+
+    <div>{{ entry.body_html|safe }}</div>
+
+    <p>Published on {{ entry.publication_date|date:"F j, Y" }}</p>
+
+    <div><a href="/weblog/">Back to Index</a></div>
+</body>
+</html>

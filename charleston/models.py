@@ -23,7 +23,7 @@ class Category(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return "/categories/{}".format(self.slug)
+        return "/categories/{}/".format(self.slug)
 
 
 class Entry(models.Model):
@@ -73,7 +73,7 @@ class Entry(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return "/weblog/{date}/{slug}".format(
+        return "/weblog/{date}/{slug}/".format(
             date=self.publication_date.strftime("%Y/%b/%d").lower(),
             slug=self.slug)
 
