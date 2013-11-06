@@ -6,7 +6,10 @@ from invoke import task, run
 
 @task
 def runserver(debug=False):
-    """Convenience command for running a test server."""
+    """Convenience command for running a test server.
+       
+       :param debug: Whether or not to run as in debug mode.
+    """
 
     base_command = "python manage.py runserver{}"
     if debug:

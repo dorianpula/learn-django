@@ -73,9 +73,13 @@ class Entry(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return "/weblog/{date}/{slug}/".format(
-            date=self.publication_date.strftime("%Y/%b/%d").lower(),
-            slug=self.slug)
+        return ('charleston_entry_detail', (),
+                {"year": self.publication_date.strftime("%Y"),
+                 "month": self.publication_date.strftime("%b").lower(),
+                 "date": self.publication_date.strftime("%d"),
+                 "slug": self.slug})
+
+    get_absolute_url = models.permalink(get_absolute_url)
 
     class Meta:
         verbose_name_plural = "Entries"
