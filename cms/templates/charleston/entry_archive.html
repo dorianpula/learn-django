@@ -7,7 +7,7 @@
     <h1>Entries Archive</h1>
     {% for entry in object_list %}
         <h2>{{ entry.title }}</h2>
-        <p>Published on {{ entry.publication_date|date:"F j, Y" }}</p>
+        <p>Published on {{ entry.pub_date|date:"F j, Y" }}</p>
 
         {% if entry.excerpt_html %}
             {{ entry.excerpt_html|safe }}

@@ -32,9 +32,9 @@ class Entry(models.Model):
     title = models.CharField(max_length=250)
     excerpt = models.TextField(blank=True)
     body = models.TextField()
-    publication_date = models.DateTimeField(default=datetime.now)
+    pub_date = models.DateTimeField(default=datetime.now)
 
-    slug = models.SlugField(unique_for_date='publication_date')
+    slug = models.SlugField(unique_for_date='pub_date')
 
     # Authors, comments and the like.
     author = models.ForeignKey(User)
@@ -74,17 +74,26 @@ class Entry(models.Model):
 
     def get_absolute_url(self):
         return ('charleston_entry_detail', (),
-                {"year": self.publication_date.strftime("%Y"),
-                 "month": self.publication_date.strftime("%b").lower(),
-                 "date": self.publication_date.strftime("%d"),
+                {"year": self.pub_date.strftime("%Y"),
+                 "month": self.pub_date.strftime("%b").lower(),
+                 "date": self.pub_date.strftime("%d"),
                  "slug": self.slug})
 
     get_absolute_url = models.permalink(get_absolute_url)
 
     class Meta:
         verbose_name_plural = "Entries"
-        ordering = ["-publication_date"]
+        ordering = ["-pub_date"]
 
 
 class Link(models.Model):
-    pass
+    """Links model hyperlinks to various URLs both external and internal."""
+
+    title = models.CharField(max_length=250)
+    description = models.TextField(blank=True)
+    description_html = models.TextField(blank=True)
+    url = models.URLField(unique=True)
+
+    posted_by = models.ForeignKey(User)
+    pub_date = models.DateTimeField(default=datetime.now)
+

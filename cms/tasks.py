@@ -5,7 +5,7 @@ from invoke import task, run
 
 
 @task(help={"debug": "Run the server in debug mode."})
-def runserver(debug=False):
+def run_server(debug=False):
     """Convenience command for running a test server.
        
        :param debug: Whether or not to run as in debug mode.

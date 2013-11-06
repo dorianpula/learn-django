@@ -9,7 +9,7 @@ admin.autodiscover()
 
 entry_info_dict = {
     'queryset': Entry.objects.all(),
-    'date_field': 'publication_date',
+    'date_field': 'pub_date',
 }
 
 urlpatterns = patterns(

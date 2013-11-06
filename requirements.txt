@@ -1,5 +1,5 @@
 # Django basic requirements
-Django==1.5.5
+Django==1.6.0
 argparse==1.2.1
 six==1.4.1
 wsgiref==0.1.2
