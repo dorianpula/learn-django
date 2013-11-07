@@ -89,11 +89,12 @@ class Entry(models.Model):
 class Link(models.Model):
     """Links model hyperlinks to various URLs both external and internal."""
 
-    title = models.CharField(max_length=250)
-    description = models.TextField(blank=True)
-    description_html = models.TextField(blank=True)
-    url = models.URLField(unique=True)
-
-    posted_by = models.ForeignKey(User)
-    pub_date = models.DateTimeField(default=datetime.now)
+    #title = models.CharField(max_length=250)
+    #description = models.TextField(blank=True)
+    #description_html = models.TextField(blank=True)
+    #url = models.URLField(unique=True)
+    #
+    #posted_by = models.ForeignKey(User)
+    #pub_date = models.DateTimeField(default=datetime.now)
+    pass
 

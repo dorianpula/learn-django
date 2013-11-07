@@ -8,10 +8,12 @@ wsgiref==0.1.2
 django-tagging>=0.0.1
 Markdown>=2.3.1
 
+# Once updated to 1.6.0
+pytz
+
 # Django debugging extensions
 Werkzeug==0.9.4
 django-extensions==1.2.5
 
 # Task runner experiment
-#invoke==dev
 invoke>=0.5.1
