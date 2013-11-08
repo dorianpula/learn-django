@@ -4,7 +4,7 @@
     <title>Entries Archive</title>
 </head>
 <body>
-    <h1>Entries Archive for {{ month|date:"j Y" }}</h1>
+    <h1>Entries Archive for {{ month|date:"F Y" }}</h1>
     {% for entry in object_list %}
         <h2>{{ entry.title }}</h2>
         <p>Published on {{ entry.pub_date|date:"F j, Y" }}</p>

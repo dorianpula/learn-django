@@ -1,4 +1,5 @@
 from datetime import datetime
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -73,13 +74,12 @@ class Entry(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return ('charleston_entry_detail', (),
-                {"year": self.pub_date.strftime("%Y"),
-                 "month": self.pub_date.strftime("%b").lower(),
-                 "date": self.pub_date.strftime("%d"),
-                 "slug": self.slug})
-
-    get_absolute_url = models.permalink(get_absolute_url)
+        """Gets the absolute URL for an entry."""
+        return reverse("charleston_entry_detail",
+                       kwargs={"year": self.pub_date.strftime("%Y"),
+                               "month": self.pub_date.strftime("%b").lower(),
+                               "day": self.pub_date.strftime("%d"),
+                               "slug": self.slug})
 
     class Meta:
         verbose_name_plural = "Entries"
@@ -89,12 +89,11 @@ class Entry(models.Model):
 class Link(models.Model):
     """Links model hyperlinks to various URLs both external and internal."""
 
-    #title = models.CharField(max_length=250)
-    #description = models.TextField(blank=True)
-    #description_html = models.TextField(blank=True)
-    #url = models.URLField(unique=True)
-    #
-    #posted_by = models.ForeignKey(User)
-    #pub_date = models.DateTimeField(default=datetime.now)
-    pass
+    title = models.CharField(max_length=250)
+    description = models.TextField(blank=True)
+    description_html = models.TextField(blank=True)
+    url = models.URLField(unique=True)
+
+    posted_by = models.ForeignKey(User)
+    pub_date = models.DateTimeField(default=datetime.now)
 
