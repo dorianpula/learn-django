@@ -167,3 +167,7 @@ LOGGING = {
         },
     }
 }
+
+# Do not share this.  Using a fake default.
+DELICIOUS_USER = 'user'
+DELICIOUS_PASSWORD = 'password'

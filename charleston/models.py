@@ -1,7 +1,11 @@
 from datetime import datetime
+
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.db import models
 from django.contrib.auth.models import User
+
+from django.conf import settings
+from django.utils.encoding import smart_str
 
 from tagging.fields import TagField
 from markdown import markdown
@@ -96,4 +100,49 @@ class Link(models.Model):
 
     posted_by = models.ForeignKey(User)
     pub_date = models.DateTimeField(default=datetime.now)
+    slug = models.SlugField(unique_for_date='pub_date')
+
+    tags = TagField()
+
+    # Allow for commenting and posting to external sites
+    enable_comments = models.BooleanField(default=True)
+    post_elsewhere = models.BooleanField(default=True)
+
+    # Extra link metadata
+    via_name = models.CharField('Via', max_length=250, blank=True,
+                                help_text='The name of the person whose site you spotted the link on.  Optional.')
+    via_url = models.URLField('Via URL', blank=True,
+                              help_text='The URL of the site where you spotted the link. Optional.')
+
+    class Meta:
+        ordering = ['-pub_date']
+
+    def __unicode__(self):
+        return self.title
+
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        """
+        Saves a link.  Updates the rendered description HTML and make sure the link gets posted elsewhere.
+        """
+
+        if self.description:
+            self.description_html = markdown(self.description)
+
+        # Update delicious
+        if not self.id and self.post_elsewhere:
+            import pydelicious
+            pydelicious.add(settings.DELICIOUS_USER, settings.DELICIOUS_PASSWORD,
+                            smart_str(self.url), smart_str(self.title), smart_str(self.tags))
+
+        super(Link, self).save(force_insert=force_insert, force_update=force_update, using=using,
+                               update_fields=update_fields)
+
+    def get_absolute_url(self):
+        """Gets the absolute URL of the link."""
+        return reverse("charleston_link_detail",
+                       kwargs={"year": self.pub_date.strftime("%Y"),
+                               "month": self.pub_date.strftime("%b").lower(),
+                               "day": self.pub_date.strftime("%d"),
+                               "slug": self.slug})
+
 
