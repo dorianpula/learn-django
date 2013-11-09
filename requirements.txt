@@ -7,7 +7,7 @@ wsgiref==0.1.2
 # Extra Django apps
 django-tagging>=0.0.1
 Markdown>=2.3.1
-pydelicious
+pydelicious==0.6
 
 # Once updated to 1.6.0
 pytz==2013.8
