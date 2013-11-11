@@ -30,6 +30,16 @@ class Category(models.Model):
     def get_absolute_url(self):
         return "/categories/{}/".format(self.slug)
 
+    def live_entry_set(self):
+        return self.entry_set.filter(status=Entry.LIVE_STATUS)
+
+
+class LiveEntryManager(models.Manager):
+    """Gets only the entries that have a live status."""
+
+    def get_queryset(self):
+        return super(LiveEntryManager, self).get_queryset().filter(status=self.model.LIVE_STATUS)
+
 
 class Entry(models.Model):
     """Entry or blog post model."""
@@ -64,6 +74,10 @@ class Entry(models.Model):
     # Separate HTML rendered entries to allow for fast loading.  (Space vs. processor tradeoff)
     excerpt_html = models.TextField(editable=False, blank=True)
     body_html = models.TextField(editable=False, blank=True)
+
+    # Hook in the nice manager we've written above.
+    live = LiveEntryManager()
+    objects = models.Manager()
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):

@@ -13,7 +13,7 @@ def category_list(request):
 
     :param request: The request to render.
     """
-    return render_to_response('charleston/category_list.html', {'object_list': Category.objects.all()})
+    return render_to_response('charleston/category_list.html', {'object_list': Category.live_entry_set()})
 
 
 def category_detail(request, slug):
@@ -26,5 +26,4 @@ def category_detail(request, slug):
 
     category = get_object_or_404(Category, slug=slug)
     return render_to_response('charleston/category_detail.html',
-                              {'object_list': category.entry_set.all(),
-                               'category': category})
+                              {'object_list': category.live_entry_set()})

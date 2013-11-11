@@ -23,9 +23,16 @@ urlpatterns = patterns(
                                                                  '{}/templates/js/tinymce'.format(PROJECT_HOME)}),
 
     url(r'^search/$', 'cms.search.views.search'),
-    url(r'^weblog/', include('charleston.urls')),
+
+    # URLs for the Charleston blog app.
+    url(r'^weblog/categories/', include('charleston.urls.categories')),
+    url(r'^weblog/links/', include('charleston.urls.links')),
+    url(r'^weblog/tags/', include('charleston.urls.tags')),
+    url(r'^weblog/', include('charleston.urls.entries')),
 
     # Flatpages url.
     url(r'', include('django.contrib.flatpages.urls'))
 )
+
+
 
